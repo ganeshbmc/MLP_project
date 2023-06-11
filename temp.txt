@@ -1,2 +1,0 @@
-test_df = pd.read_csv(r"./data/test.csv")
-test_df.shape, test_df.head()
