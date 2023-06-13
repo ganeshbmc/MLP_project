@@ -75,3 +75,30 @@ def get_tfidf_vocab(traindf,
     vocab_combined_dict = pos_vocab | neg_vocab
     vocab_combined = list(vocab_combined_dict.keys())
     return vocab_combined
+
+
+def select_features(df: pd.DataFrame, moviesdf: pd.DataFrame):
+    # Drop duplicates from moviesdf
+    movies_unique = moviesdf.drop_duplicates(subset=["movieid"])
+
+    # Merge df and movies_unique
+    df_merged = pd.merge(df, movies_unique, on="movieid")
+
+    # Drop columns
+    df_merged = df_merged.drop(columns=["title", "ratingContents", "releaseDateTheaters", "releaseDateStreaming", "boxOffice", "distributor", "soundType"])
+
+    # Fill missing values in "reviewText", 'rating" column with empty string and "NA" respectively
+    # Clean language names
+
+    final = df_merged.copy()
+    final["reviewText"] = final["reviewText"].fillna("")
+    final["rating"] = final["rating"].fillna("NA")
+    final["originalLanguage"].replace({"English (United Kingdom)": "English", 
+                                            "English (Australia)" : "English",
+                                            "French (France)": "French", 
+                                            "French (Canada)": "French",
+                                            "Portuguese (Brazil)": "Portuguese",
+                                            "Spanish (Spain)": "Spanish"},                                         
+                                            inplace=True)
+
+    return final
