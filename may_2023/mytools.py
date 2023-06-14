@@ -3,7 +3,7 @@ import numpy as np
 
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay
-from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 
 def load_csv(filename: str):
     df = pd.read_csv(f"data/{filename}.csv")
@@ -75,6 +75,47 @@ def get_tfidf_vocab(traindf,
     vocab_combined_dict = pos_vocab | neg_vocab
     vocab_combined = list(vocab_combined_dict.keys())
     return vocab_combined
+
+
+def get_countvec_vocab(traindf, 
+                    ngram_range=(1,2), 
+                    min_df=0.0001, 
+                    max_df=0.8, 
+                    stop_words='english', 
+                    max_features=10000):
+    """
+    Function for Weighted Class TF-IDF  
+    Returns a list of words that are most important for the given dataset. 
+
+    [Link](https://www.deepwizai.com/projects/how-to-correctly-use-tf-idf-with-imbalanced-data)  
+    """
+    text = traindf["reviewText"]
+    pos_text = traindf[traindf["sentiment"] == "POSITIVE"]["reviewText"]
+    neg_text = traindf[traindf["sentiment"] == "NEGATIVE"]["reviewText"]
+
+    n_pos_features = round((len(pos_text) / len(text)) * max_features)
+    n_neg_features = round((len(neg_text) / len(text)) * max_features)
+
+    cvec_pos = CountVectorizer(stop_words=stop_words, 
+                                max_features=n_pos_features, 
+                                ngram_range=ngram_range, 
+                                min_df=min_df, 
+                                max_df=max_df)
+    cvec_pos.fit(pos_text)
+    pos_vocab = cvec_pos.vocabulary_
+
+    cvec_neg = CountVectorizer(stop_words=pos_vocab, 
+                                max_features=n_neg_features, 
+                                ngram_range=ngram_range, 
+                                min_df=min_df, 
+                                max_df=max_df)
+    cvec_neg.fit(neg_text)
+    neg_vocab = cvec_neg.vocabulary_
+
+    vocab_combined_dict = pos_vocab | neg_vocab
+    vocab_combined = list(vocab_combined_dict.keys())
+    return vocab_combined
+
 
 
 def select_features(df: pd.DataFrame, moviesdf: pd.DataFrame):
