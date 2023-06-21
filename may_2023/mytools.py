@@ -143,3 +143,14 @@ def select_features(df: pd.DataFrame, moviesdf: pd.DataFrame):
                                             inplace=True)
 
     return final
+
+def inspect(df: pd.DataFrame):
+    print(f"Shape of the dataframe: {df.shape}")
+    print()
+    print(f"Columns in the dataframe:\n{df.columns}")
+    print()
+    print(f"{df.info()}")
+    print()
+    # print(f"Summary: {df.describe()}")
+    print(f"Missing values:\n{df.isna().sum()}")
+    return
