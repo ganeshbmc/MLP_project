@@ -4,6 +4,10 @@ import numpy as np
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
+from sklearn.preprocessing import StandardScaler, MinMaxScaler, OneHotEncoder
+from sklearn.impute import SimpleImputer
+from sklearn.compose import ColumnTransformer
+from sklearn.model_selection import train_test_split, GridSearchCV, RandomizedSearchCV
 
 def load_csv(filename: str):
     df = pd.read_csv(f"data/{filename}.csv")
@@ -126,7 +130,7 @@ def select_features(df: pd.DataFrame, moviesdf: pd.DataFrame):
     df_merged = pd.merge(df, movies_unique, on="movieid")
 
     # Drop columns
-    df_merged = df_merged.drop(columns=["title", "ratingContents", "releaseDateTheaters", "releaseDateStreaming", "boxOffice", "distributor", "soundType"])
+    df_merged = df_merged.drop(columns=["title", "ratingContents", "releaseDateTheaters", "releaseDateStreaming", "distributor", "soundType"])
 
     # Fill missing values in "reviewText", 'rating" column with empty string and "NA" respectively
     # Clean language names
@@ -154,3 +158,31 @@ def inspect(df: pd.DataFrame):
     # print(f"Summary: {df.describe()}")
     print(f"Missing values:\n{df.isna().sum()}")
     return
+
+
+def split_train_predict(features, labels, pipeline, test_size=0.25, random_state=42):
+    # cols = features.columns
+    if len(features.shape) == 1:
+        features = features.to_numpy().reshape(-1, 1)  # reshape to 2D array
+    features = pd.DataFrame(features)
+    X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=test_size, random_state=random_state)
+    pipeline.fit(X_train, y_train)
+    y_pred = pipeline.predict(X_test)
+    print(classification_report(y_test, y_pred))
+    print(confusion_matrix(y_test, y_pred))
+    return #y_pred
+
+def get_preprocessing_pipelines():
+    num_pipe = Pipeline(steps=[
+                            ("imputer", SimpleImputer(strategy="mean", missing_values=np.nan)),
+                            ("scaler", MinMaxScaler())
+                        ])
+    
+    cat_pipe = Pipeline(steps=[
+                            ("ohe", OneHotEncoder(handle_unknown="ignore"))
+                        ])
+    
+    txt_pipe = Pipeline(steps=[
+                            ("tvec", TfidfVectorizer())
+                        ])
+    return num_pipe, cat_pipe, txt_pipe
