@@ -1,0 +1,13 @@
+Use median for runtimemins column
+Try to replace outliers with median value in runtimemins column
+Try to impute missing values using other column values
+Try to use custom stop_words built from common words in positive and negative sentiment rows
+Use stratified split instead of train_test_split - use k-fold crossvalidation
+
+
+For level 2 viva
+- Showcase all the work in the final notebook
+- Add markdown for insights, summaries and also annotate
+- Try ensemble models 
+- Try bagging and boosting on top of base models like logreg which are already giving good scores
+- Read up theory part of MLT and MLF
