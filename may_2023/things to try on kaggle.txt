@@ -36,3 +36,12 @@ NOTEBOOK CLEANING
 	- Write insights and observations
 	- More EDA and graphs
 	- Write strengths of my notebook
+
+
+Radical ideas
+	- Get common reviewText vocabulary of train and test and train best model only on that common vocab
+	- Same as above but get common vocab by splitting train itself
+	- Run the model with previous best kaggle score on
+				- Limited (best) feature set
+	- Change GridsearchCV scoring function to F1_micro
+				- Rerun on all_dict and on a limited feature (best) set 
