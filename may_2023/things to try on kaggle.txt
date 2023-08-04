@@ -45,3 +45,23 @@ Radical ideas
 				- Limited (best) feature set
 	- Change GridsearchCV scoring function to F1_micro
 				- Rerun on all_dict and on a limited feature (best) set 
+
+	- Replace numbers in reviewText
+
+Scores of each feature on LogReg
+	- Categorical  
+		- isFrequentReviewer: 0.668
+		- rating: 0.668
+		- originalLanguage: 0.66
+	- Numerical  
+		- audiencescore: 0.69		**
+		- runtimeMins: 0.66
+		- boxOffice: 0.66
+	- Text  
+		- reviewText: 0.82+			*****
+		- movieid: 0.78				****
+		- reviewerName: 0.67		*
+		- genre: 0.66				*
+		- director: 0.72			***
+		- originalLanguage: 0.668		
+

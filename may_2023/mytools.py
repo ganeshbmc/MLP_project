@@ -121,23 +121,56 @@ def get_countvec_vocab(traindf,
     return vocab_combined
 
 
-
+# SELECT FEATURES FUNCTION
 def select_features(df: pd.DataFrame, moviesdf: pd.DataFrame):
+    '''
+    This function merges the given dataframes. Note that the first df must be "train" or "test" and
+    the second df should be "movies".
+    Note: Sentiment column is present only in "train.csv" file and not "test.csv" file.
+    '''
+    
     # Drop duplicates from moviesdf
-    movies_unique = moviesdf.drop_duplicates(subset=["movieid"])
+#     movies_unique = moviesdf.drop_duplicates(subset=["movieid"])
+    # Drop duplicates using groupby - clubs similar rows and fills in missing values better
+    movies_unique = moviesdf.fillna(value=np.nan).groupby("movieid").first()
 
     # Merge df and movies_unique
-    df_merged = pd.merge(df, movies_unique, on="movieid")
-
+    df_merged = pd.merge(df, movies_unique, on="movieid", how='left')
+    
+    # Rename "isTopCritic" column, if it exists, to "isFrequentReviewer"
+    df_merged.rename(columns={"isTopCritic": "isFrequentReviewer"}, inplace=True)
+    
     # Drop columns
     df_merged = df_merged.drop(columns=["title", "ratingContents", "releaseDateTheaters", "releaseDateStreaming", "distributor", "soundType"])
 
-    # Fill missing values in "reviewText", 'rating" column with empty string and "NA" respectively
-    # Clean language names
-
+    # Fill missing values in "reviewText" with empty string
     final = df_merged.copy()
-    final["reviewText"] = final["reviewText"].fillna("")
-    final["rating"] = final["rating"].fillna("NA")
+    final["reviewYN"] = np.where(final["reviewText"].isnull(), 1, 0)    # Feature engineering - adding a new column
+    final["reviewWC"] = final.apply(lambda x: len(str(x["reviewText"]).split()), axis=1)    # Feature engineering - adding second new column
+    final["reviewText"] = final["reviewText"].fillna("neutral")
+    
+    # Fill missing values in "rating", "genre", original columns with the word "Unknown"
+    final["rating"] = final["rating"].fillna("Unknown")
+    final["genre"] = final["genre"].fillna("Unknown")
+    final["originalLanguage"] = final["originalLanguage"].fillna("Unknown")
+
+    # Impute missing values for "audienceScore" and "runtimeMinutes" columns
+    final["audienceScore"] = final["audienceScore"].fillna(final["audienceScore"].mean())
+    final["runtimeMinutes"] = final["runtimeMinutes"].fillna(final["runtimeMinutes"].median())
+    
+    # Preprocess and impute missing values in "boxOffice" column
+    final["boxOffice"] = final["boxOffice"].str[1:]
+    final["boxOffice"] = final["boxOffice"].replace(to_replace={"M": "*1000000", "K": "*1000"}, regex=True)
+    final["boxOffice"] = final["boxOffice"].loc[final["boxOffice"].notnull()].apply(lambda x: eval(str(x)))
+    final["boxOffice"] = final["boxOffice"].fillna(final["boxOffice"].median())
+    # (Optional) Replace outliers in boxOffice with median
+    median = final["boxOffice"].describe()['50%']
+    iqr = final["boxOffice"].describe()['75%'] - final["boxOffice"].describe()['25%']
+    ll = median - (1.5*iqr)
+    ul = median + (1.5*iqr)
+    final.loc[final["boxOffice"] > ul, "boxOffice"] = median
+    
+    # Clean language names
     final["originalLanguage"].replace({"English (United Kingdom)": "English", 
                                             "English (Australia)" : "English",
                                             "French (France)": "French", 
@@ -145,8 +178,15 @@ def select_features(df: pd.DataFrame, moviesdf: pd.DataFrame):
                                             "Portuguese (Brazil)": "Portuguese",
                                             "Spanish (Spain)": "Spanish"},                                         
                                             inplace=True)
+    
+    # Clean reviewerName column
+    pre_post_fixes = {"Mr. ": "", "Mrs. ": "", "Ms. ": "", "Dr. ": "", 
+                      " MD": "", " DDS": "", " DVM": "", " Jr.": "", " PhD": "", " II": "", " IV": ""}
+    final["reviewerName"] = final["reviewerName"].replace(pre_post_fixes, regex=True)
+    final["reviewerName"] = final["reviewerName"].apply(name_fl)
 
     return final
+
 
 def inspect(df: pd.DataFrame):
     print(f"Shape of the dataframe: {df.shape}")
@@ -186,3 +226,33 @@ def get_preprocessing_pipelines():
                             ("tvec", TfidfVectorizer())
                         ])
     return num_pipe, cat_pipe, txt_pipe
+
+
+
+# OLDER VERSIONS OF SOME FUNCTIONS
+
+# def select_features(df: pd.DataFrame, moviesdf: pd.DataFrame):
+#     # Drop duplicates from moviesdf
+#     movies_unique = moviesdf.drop_duplicates(subset=["movieid"])
+
+#     # Merge df and movies_unique
+#     df_merged = pd.merge(df, movies_unique, on="movieid")
+
+#     # Drop columns
+#     df_merged = df_merged.drop(columns=["title", "ratingContents", "releaseDateTheaters", "releaseDateStreaming", "distributor", "soundType"])
+
+#     # Fill missing values in "reviewText", 'rating" column with empty string and "NA" respectively
+#     # Clean language names
+
+#     final = df_merged.copy()
+#     final["reviewText"] = final["reviewText"].fillna("")
+#     final["rating"] = final["rating"].fillna("NA")
+#     final["originalLanguage"].replace({"English (United Kingdom)": "English", 
+#                                             "English (Australia)" : "English",
+#                                             "French (France)": "French", 
+#                                             "French (Canada)": "French",
+#                                             "Portuguese (Brazil)": "Portuguese",
+#                                             "Spanish (Spain)": "Spanish"},                                         
+#                                             inplace=True)
+
+#     return final
