@@ -65,3 +65,10 @@ Scores of each feature on LogReg
 		- director: 0.72			***
 		- originalLanguage: 0.668		
 
+
+Do something extra
+	- Replace numbers in reviewText with emtpy strings
+	- Try transformation. For eg. Log transform on Box-office
+	- Try polynomial features
+	- Try CountVectorizer instead of TfidfVectorizer
+	- Try both TfidfVectorizer and CountVectorizer on reviewText 
