@@ -68,7 +68,8 @@ Scores of each feature on LogReg
 
 Do something extra
 	- Replace numbers in reviewText with emtpy strings
-	- Try transformation. For eg. Log transform on Box-office
+	- Adjust boxOffice for inflation 
+	- Try transformation. For eg. Log transform on boxOffice 
 	- Try polynomial features
 	- Try CountVectorizer instead of TfidfVectorizer
 	- Try both TfidfVectorizer and CountVectorizer on reviewText 
