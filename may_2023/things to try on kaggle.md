@@ -1,4 +1,4 @@
-Feedback from level 1 viva
+## Feedback from level 1 viva
 
 Use median for runtimemins column
 Try to replace outliers with median value in runtimemins column
@@ -7,7 +7,7 @@ Try to use custom stop_words built from common words in positive and negative se
 Use stratified split instead of train_test_split - use k-fold crossvalidation
 
 
-For level 2 viva
+## For level 2 viva
 - Showcase all the work in the final notebook
 - Add markdown for insights, summaries and also annotate
 - Try ensemble models 
@@ -16,7 +16,7 @@ For level 2 viva
 
 
 
-Things to try on kaggle
+# Things to try on kaggle
 
 Imputing missing values from other columns seems to be a big problem - Better not to pursue
 
@@ -31,14 +31,14 @@ Try ensemble methods
 Try Bagging/boosting		-	DONE	-	AdaBoost is bad!
 
 
-NOTEBOOK CLEANING
+## NOTEBOOK CLEANING
 	- Annotate
 	- Write insights and observations
 	- More EDA and graphs
 	- Write strengths of my notebook
 
 
-Radical ideas
+## Radical ideas
 	- Get common reviewText vocabulary of train and test and train best model only on that common vocab
 	- Same as above but get common vocab by splitting train itself
 	- Run the model with previous best kaggle score on
@@ -48,7 +48,7 @@ Radical ideas
 
 	- Replace numbers in reviewText
 
-Scores of each feature on LogReg
+### Scores of each feature on LogReg
 	- Categorical  
 		- isFrequentReviewer: 0.668
 		- rating: 0.668
@@ -66,10 +66,11 @@ Scores of each feature on LogReg
 		- originalLanguage: 0.668		
 
 
-Do something extra
-	- Replace numbers in reviewText with emtpy strings
+## Do something extra
+	- Try stip_accents='unicode' in TfidfVectorizer		-	DONE
+	- Replace numbers in reviewText with emtpy strings	-	DONE
 	- Adjust boxOffice for inflation 
 	- Try transformation. For eg. Log transform on boxOffice 
 	- Try polynomial features
 	- Try CountVectorizer instead of TfidfVectorizer
-	- Try both TfidfVectorizer and CountVectorizer on reviewText 
+	- Try both TfidfVectorizer and CountVectorizer on reviewText	-	DONE
