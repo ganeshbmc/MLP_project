@@ -79,3 +79,4 @@ Try Bagging/boosting		-	DONE	-	AdaBoost is bad!
 	- MinMaxScaler vs StandardScaler on numerical features
 	- Drop columns with more than 7 missing values in train
 	- Use the remaining features from movies dataset
+	- Interrelationship between 'isFrequentReviewer', 'rating', 'audienceScore'
