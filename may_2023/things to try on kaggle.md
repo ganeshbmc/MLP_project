@@ -76,3 +76,4 @@ Try Bagging/boosting		-	DONE	-	AdaBoost is bad!
 	- Try both TfidfVectorizer and CountVectorizer on reviewText	-	DONE
 	- Try CountVectorizer or DictVectorizer on genre
 	- Replace " & " with "" in genre
+	- MinMaxScaler vs StandardScaler on numerical features
