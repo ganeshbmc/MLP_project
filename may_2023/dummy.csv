@@ -1,0 +1,11 @@
+movie_id,audience_score,run_time,genre
+1,8.5,120,Action
+1,,110,
+2,7.9,,Comedy
+2,,95,
+3,6.3,105,Drama
+3,6.1,,Romance
+4,,95,Comedy
+4,7.2,100,
+5,,130,Action
+5,8.0,120,

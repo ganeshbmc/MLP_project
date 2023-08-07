@@ -1,0 +1,46 @@
+Shape of the dataframe: (126404, 13)
+
+Columns in the dataframe:
+Index(['title', 'audienceScore', 'rating', 'ratingContents',
+       'releaseDateTheaters', 'releaseDateStreaming', 'runtimeMinutes',
+       'genre', 'originalLanguage', 'director', 'boxOffice', 'distributor',
+       'soundType'],
+      dtype='object')
+
+<class 'pandas.core.frame.DataFrame'>
+Index: 126404 entries, adventure_anakin_skywalker to zephyr_wondrous_rick_blaine
+Data columns (total 13 columns):
+ #   Column                Non-Null Count   Dtype  
+---  ------                --------------   -----  
+ 0   title                 126404 non-null  object 
+ 1   audienceScore         66187 non-null   float64
+ 2   rating                13319 non-null   object 
+ 3   ratingContents        13319 non-null   object 
+ 4   releaseDateTheaters   28896 non-null   object 
+ 5   releaseDateStreaming  71696 non-null   object 
+ 6   runtimeMinutes        114448 non-null  float64
+ 7   genre                 116797 non-null  object 
+ 8   originalLanguage      114589 non-null  object 
+ 9   director              126404 non-null  object 
+ 10  boxOffice             14205 non-null   object 
+ 11  distributor           21773 non-null   object 
+ 12  soundType             15170 non-null   object 
+dtypes: float64(2), object(11)
+memory usage: 13.5+ MB
+None
+
+Missing values:
+title                        0
+audienceScore            60217
+rating                  113085
+ratingContents          113085
+releaseDateTheaters      97508
+releaseDateStreaming     54708
+runtimeMinutes           11956
+genre                     9607
+originalLanguage         11815
+director                     0
+boxOffice               112199
+distributor             104631
+soundType               111234
+dtype: int64
