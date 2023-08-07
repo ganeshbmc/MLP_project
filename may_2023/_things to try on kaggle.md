@@ -82,3 +82,15 @@ Try Bagging/boosting		-	DONE	-	AdaBoost is bad!
 	- Use the remaining features from movies dataset
 	- Drop rows with more than 7 missing values in train
 	- Interrelationship between 'isFrequentReviewer', 'rating', 'audienceScore'
+
+
+## Finishing touches  
+	- Show minimum 3 models!
+	- Annotate
+	- Strengths  
+    	- Modular code (DRY principle), custom functions  
+    	- End to end pipeline in one function (with helper functions)  
+	- Insights  
+    	- Domain expertise  
+    	- EDA  
+  	- Remove all redundant code  
