@@ -105,4 +105,5 @@ Try Bagging/boosting		-	DONE	-	AdaBoost is bad!
   - Move vocabulary generation into submit_v4 function
   - Generate vocabulary on train set only
   - Try to use custom stop_words built from common words in positive and negative sentiment rows
-
+  - Use stratified split (based on isFrequentReviewer) instead of train_test_split - use k-fold crossvalidation
+  - 
