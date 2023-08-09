@@ -100,3 +100,9 @@ Try Bagging/boosting		-	DONE	-	AdaBoost is bad!
     	- EDA  
   	- Remove all redundant code  
 >>>>>>> b81dc289be52d11d974110af7458fce3086dc041:may_2023/_things to try on kaggle.md
+
+IMPORTANT
+
+- Move vocabulary generation into submit_v4 function
+- Do imputations in submit_v4 function instead of in select_features function
+- Try to use custom stop_words built from common words in positive and negative sentiment rows
