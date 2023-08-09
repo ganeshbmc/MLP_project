@@ -271,3 +271,167 @@ Successfully created the submission file!!!
  'mean_test_score': array([0.81546222]),
  'std_test_score': array([0.00202231]),
  'rank_test_score': array([1], dtype=int32)}
+
+
+
+
+
+#################### reviewText + vocabulary=common_1_2_3_grams + addCountvec=True ####################
+
+
+Running the submit_v4 function...
+
+Selected features: {'txt': ['reviewText', 'reviewText_2', 'reviewText_3']}
+
+Pipeline built successfully.
+
+Full GridSearchCV pipeline built successfully.
+GridSearchCV(cv=10,
+             estimator=Pipeline(steps=[('ct',
+                                        ColumnTransformer(transformers=[('txt_reviewText',
+                                                                         Pipeline(steps=[('tvec',
+                                                                                          TfidfVectorizer(ngram_range=(1,
+                                                                                                                       3),
+                                                                                                          strip_accents='unicode'))]),
+                                                                         'reviewText'),
+                                                                        ('txt_reviewText_2',
+                                                                         Pipeline(steps=[('cvec',
+                                                                                          CountVectorizer(ngram_range=(1,
+                                                                                                                       3),
+                                                                                                          strip_accents='unicode'))]),
+                                                                         'reviewText_2'),
+                                                                        ('txt_reviewText_3',
+                                                                         Pipelin...
+                                                                                                                      'abandoned',
+                                                                                                                      'abandoned '
+                                                                                                                      'good',
+                                                                                                                      'abandoning',
+                                                                                                                      'abandoning '
+                                                                                                                      'logic',
+                                                                                                                      'abandoning '
+                                                                                                                      'traditional',
+                                                                                                                      'abandonment',
+                                                                                                                      'abandonment '
+                                                                                                                      'adoption', ...}))]),
+                                                                         'reviewText_3')])),
+                                       ('model',
+                                        LogisticRegression(C=1, max_iter=100000,
+                                                           solver='liblinear'))]),
+             n_jobs=-1,
+             param_grid={'model__C': [1], 'model__dual': [False],
+                         'model__fit_intercept': [True],
+                         'model__solver': ['saga']},
+             scoring='f1_micro')
+
+Check 1 complete.
+Shape of X_train: (162758, 3)
+Features in X_train: Index(['reviewText', 'reviewText_2', 'reviewText_3'], dtype='object')
+
+Training started with full pipeline...
+
+Check 2 complete.
+Details of the best model using full pipeline (GridSearchCV) on X_train: 
+Best Params: {'model__C': 1, 'model__dual': False, 'model__fit_intercept': True, 'model__solver': 'saga'}
+Best Score: 0.8221162802637604
+Confusion matrix and f1-score for rows which have no reviewText in X_train: 
+[[   0 2405]
+ [   0 4042]]
+0.6269582751667442
+
+Check 3 complete.
+Shape of X_test: (55315, 3)
+Features in X_train: Index(['reviewText', 'reviewText_2', 'reviewText_3'], dtype='object')
+
+Check 4 complete.
+Details of the best model using full pipeline (GridSearchCV) on X_train: 
+Best Estimator: Pipeline(steps=[('ct',
+                 ColumnTransformer(transformers=[('txt_reviewText',
+                                                  Pipeline(steps=[('tvec',
+                                                                   TfidfVectorizer(ngram_range=(1,
+                                                                                                3),
+                                                                                   strip_accents='unicode'))]),
+                                                  'reviewText'),
+                                                 ('txt_reviewText_2',
+                                                  Pipeline(steps=[('cvec',
+                                                                   CountVectorizer(ngram_range=(1,
+                                                                                                3),
+                                                                                   strip_accents='unicode'))]),
+                                                  'reviewText_2'),
+                                                 ('txt_reviewText_3',
+                                                  Pipeline(steps=[('tvec',
+                                                                   TfidfVectori...
+                                                                                               'seltzer',
+                                                                                               'aaron '
+                                                                                               'sorkin',
+                                                                                               'aaron '
+                                                                                               'sorkin '
+                                                                                               'movie',
+                                                                                               'aaron '
+                                                                                               'sorkin '
+                                                                                               'ricardos',
+                                                                                               'aaron '
+                                                                                               'sorkin '
+                                                                                               'script',
+                                                                                               'aaron '
+                                                                                               'spelling',
+                                                                                               'aarp',
+                                                                                               'ab',
+                                                                                               'abandon',
+                                                                                               'abandoned',
+                                                                                               'abandoned '
+                                                                                               'good',
+                                                                                               'abandoning',
+                                                                                               'abandoning '
+                                                                                               'logic',
+                                                                                               'abandoning '
+                                                                                               'traditional',
+                                                                                               'abandonment',
+                                                                                               'abandonment '
+                                                                                               'adoption', ...}))]),
+                                                  'reviewText_3')])),
+                ('model',
+                 LogisticRegression(C=1, max_iter=100000, solver='saga'))])
+Best Params: {'model__C': 1, 'model__dual': False, 'model__fit_intercept': True, 'model__solver': 'saga'}
+Best Score: 0.8221162802637604
+Best Index: 0
+Refit Time: 590.2327907085419
+Shape of CV results dataframe: (1, 22)
+
+Successfully created the submission file!!!
+{'mean_fit_time': array([627.28637071]),
+ 'std_fit_time': array([72.9408758]),
+ 'mean_score_time': array([4.87403507]),
+ 'std_score_time': array([0.49645867]),
+ 'param_model__C': masked_array(data=[1],
+              mask=[False],
+        fill_value='?',
+             dtype=object),
+ 'param_model__dual': masked_array(data=[False],
+              mask=[False],
+        fill_value='?',
+             dtype=object),
+ 'param_model__fit_intercept': masked_array(data=[True],
+              mask=[False],
+        fill_value='?',
+             dtype=object),
+ 'param_model__solver': masked_array(data=['saga'],
+              mask=[False],
+        fill_value='?',
+             dtype=object),
+ 'params': [{'model__C': 1,
+   'model__dual': False,
+   'model__fit_intercept': True,
+   'model__solver': 'saga'}],
+ 'split0_test_score': array([0.82378963]),
+ 'split1_test_score': array([0.82010322]),
+ 'split2_test_score': array([0.81856722]),
+ 'split3_test_score': array([0.82354387]),
+ 'split4_test_score': array([0.82378963]),
+ 'split5_test_score': array([0.82507987]),
+ 'split6_test_score': array([0.82102482]),
+ 'split7_test_score': array([0.81948882]),
+ 'split8_test_score': array([0.8237788]),
+ 'split9_test_score': array([0.82199693]),
+ 'mean_test_score': array([0.82211628]),
+ 'std_test_score': array([0.00209624]),
+ 'rank_test_score': array([1], dtype=int32)}
