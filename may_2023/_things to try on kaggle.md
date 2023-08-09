@@ -80,11 +80,9 @@ Try Bagging/boosting		-	DONE	-	AdaBoost is bad!
 
 ## Last minute dash  
 	- Use the remaining features from movies dataset
-<<<<<<< HEAD:may_2023/things to try on kaggle.md
 	- Interrelationship between 'isFrequentReviewer', 'rating', 'audienceScore'
 
 
-=======
 	- Drop rows with more than 7 missing values in train
 	- Interrelationship between 'isFrequentReviewer', 'rating', 'audienceScore'
 
@@ -99,10 +97,12 @@ Try Bagging/boosting		-	DONE	-	AdaBoost is bad!
     	- Domain expertise  
     	- EDA  
   	- Remove all redundant code  
->>>>>>> b81dc289be52d11d974110af7458fce3086dc041:may_2023/_things to try on kaggle.md
 
-IMPORTANT
+# IMPORTANT
 
-- Move vocabulary generation into submit_v4 function
-- Do imputations in submit_v4 function instead of in select_features function
-- Try to use custom stop_words built from common words in positive and negative sentiment rows
+  - Do not do merge.first() on movies dataset
+  - Do imputations in submit_v4 function instead of in select_features function
+  - Move vocabulary generation into submit_v4 function
+  - Generate vocabulary on train set only
+  - Try to use custom stop_words built from common words in positive and negative sentiment rows
+
