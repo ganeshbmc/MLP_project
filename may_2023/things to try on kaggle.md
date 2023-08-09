@@ -80,3 +80,5 @@ Try Bagging/boosting		-	DONE	-	AdaBoost is bad!
 	- Drop columns with more than 7 missing values in train
 	- Use the remaining features from movies dataset
 	- Interrelationship between 'isFrequentReviewer', 'rating', 'audienceScore'
+
+
