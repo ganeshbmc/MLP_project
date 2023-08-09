@@ -1,46 +1,143 @@
-Shape of the dataframe: (126404, 13)
+Shape of the dataframe: (162758, 30)
 
 Columns in the dataframe:
-Index(['title', 'audienceScore', 'rating', 'ratingContents',
+Index(['movieid', 'reviewerName', 'isFrequentReviewer', 'reviewText',
+       'sentiment', 'title', 'audienceScore', 'rating', 'ratingContents',
        'releaseDateTheaters', 'releaseDateStreaming', 'runtimeMinutes',
        'genre', 'originalLanguage', 'director', 'boxOffice', 'distributor',
-       'soundType'],
+       'soundType', 'reviewYN', 'reviewWC', 'genreSorted', 'rcSorted',
+       'releaseDate', 'releaseYear', 'releaseMonth', 'releaseDiff',
+       'audScoreBins', 'runtimeBins', 'boxOfficeBins', 'releaseDiffBins'],
       dtype='object')
 
 <class 'pandas.core.frame.DataFrame'>
-Index: 126404 entries, adventure_anakin_skywalker to zephyr_wondrous_rick_blaine
-Data columns (total 13 columns):
- #   Column                Non-Null Count   Dtype  
----  ------                --------------   -----  
- 0   title                 126404 non-null  object 
- 1   audienceScore         66187 non-null   float64
- 2   rating                13319 non-null   object 
- 3   ratingContents        13319 non-null   object 
- 4   releaseDateTheaters   28896 non-null   object 
- 5   releaseDateStreaming  71696 non-null   object 
- 6   runtimeMinutes        114448 non-null  float64
- 7   genre                 116797 non-null  object 
- 8   originalLanguage      114589 non-null  object 
- 9   director              126404 non-null  object 
- 10  boxOffice             14205 non-null   object 
- 11  distributor           21773 non-null   object 
- 12  soundType             15170 non-null   object 
-dtypes: float64(2), object(11)
-memory usage: 13.5+ MB
+Int64Index: 162758 entries, 0 to 162757
+Data columns (total 30 columns):
+ #   Column                Non-Null Count   Dtype         
+---  ------                --------------   -----         
+ 0   movieid               162758 non-null  object        
+ 1   reviewerName          162758 non-null  object        
+ 2   isFrequentReviewer    162758 non-null  bool          
+ 3   reviewText            162758 non-null  object        
+ 4   sentiment             162758 non-null  object        
+ 5   title                 162758 non-null  object        
+ 6   audienceScore         162758 non-null  float64       
+ 7   rating                162758 non-null  object        
+ 8   ratingContents        162758 non-null  object        
+ 9   releaseDateTheaters   146403 non-null  datetime64[ns]
+ 10  releaseDateStreaming  157353 non-null  datetime64[ns]
+ 11  runtimeMinutes        162758 non-null  float64       
+ 12  genre                 162758 non-null  object        
+ 13  originalLanguage      162758 non-null  object        
+ 14  director              162758 non-null  object        
+ 15  boxOffice             162758 non-null  float64       
+ 16  distributor           162758 non-null  object        
+ 17  soundType             93466 non-null   object        
+ 18  reviewYN              162758 non-null  int64         
+ 19  reviewWC              162758 non-null  int64         
+ 20  genreSorted           162758 non-null  object        
+ 21  rcSorted              162758 non-null  object        
+ 22  releaseDate           162758 non-null  datetime64[ns]
+ 23  releaseYear           162758 non-null  int64         
+ 24  releaseMonth          162758 non-null  int64         
+ 25  releaseDiff           162758 non-null  float64       
+ 26  audScoreBins          162758 non-null  int64         
+ 27  runtimeBins           162758 non-null  category      
+ 28  boxOfficeBins         162758 non-null  int64         
+ 29  releaseDiffBins       162758 non-null  category      
+dtypes: bool(1), category(2), datetime64[ns](3), float64(4), int64(6), object(14)
+memory usage: 35.2+ MB
 None
 
 Missing values:
-title                        0
-audienceScore            60217
-rating                  113085
-ratingContents          113085
-releaseDateTheaters      97508
-releaseDateStreaming     54708
-runtimeMinutes           11956
-genre                     9607
-originalLanguage         11815
-director                     0
-boxOffice               112199
-distributor             104631
-soundType               111234
+movieid                     0
+reviewerName                0
+isFrequentReviewer          0
+reviewText                  0
+sentiment                   0
+title                       0
+audienceScore               0
+rating                      0
+ratingContents              0
+releaseDateTheaters     16355
+releaseDateStreaming     5405
+runtimeMinutes              0
+genre                       0
+originalLanguage            0
+director                    0
+boxOffice                   0
+distributor                 0
+soundType               69292
+reviewYN                    0
+reviewWC                    0
+genreSorted                 0
+rcSorted                    0
+releaseDate                 0
+releaseYear                 0
+releaseMonth                0
+releaseDiff                 0
+audScoreBins                0
+runtimeBins                 0
+boxOfficeBins               0
+releaseDiffBins             0
 dtype: int64
+
+
+merged['audienceScore'].describe()
+count    162758.000000
+mean         65.010474
+std          19.840144
+min           0.000000
+25%          51.000000
+50%          68.000000
+75%          81.000000
+max         100.000000
+Name: audienceScore, dtype: float64
+
+
+merged['boxOffice'].describe()
+count    1.627580e+05
+mean     4.160983e+07
+std      7.932291e+07
+min      0.000000e+00
+25%      2.000000e+06
+50%      1.430000e+07
+75%      4.200000e+07
+max      8.584000e+08
+Name: boxOffice, dtype: float64
+
+
+merged['runtimeMinutes'].describe()
+count    162758.000000
+mean        106.992019
+std          22.203778
+min           4.000000
+25%          93.000000
+50%         104.000000
+75%         118.000000
+max         561.000000
+Name: runtimeMinutes, dtype: float64
+
+
+
+
+
+	audienceScore	runtimeMinutes	boxOffice
+count	55315.000000	55315.000000	5.531500e+04
+mean	64.788067	106.233734	3.722110e+07
+std	19.921266	22.202792	7.510475e+07
+min	0.000000	4.000000	0.000000e+00
+25%	51.000000	93.000000	1.900000e+06
+50%	67.000000	103.000000	1.220000e+07
+75%	81.000000	117.000000	3.460000e+07
+max	100.000000	561.000000	8.584000e+08
+
+	audienceScore	runtimeMinutes	boxOffice
+count	53866.000000	54937.000000	4.175600e+04
+mean	64.788067	106.255984	4.534595e+07
+std	20.187434	22.277421	8.487113e+07
+min	0.000000	4.000000	0.000000e+00
+25%	50.000000	93.000000	6.211000e+05
+50%	68.000000	103.000000	1.220000e+07
+75%	81.000000	117.000000	5.180000e+07
+max	100.000000	561.000000	8.584000e+08
