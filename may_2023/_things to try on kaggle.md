@@ -82,7 +82,7 @@ Try Bagging/boosting		-	DONE	-	AdaBoost is bad!
 	- Use the remaining features from movies dataset
 	- Drop rows with more than 7 missing values in train
 	- Interrelationship between 'isFrequentReviewer', 'rating', 'audienceScore'
-
+	- runtimeDiff ROC curve  
 
 ## Finishing touches  
 	- Show minimum 3 models!
