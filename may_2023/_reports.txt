@@ -105,3 +105,26 @@ Best params obtained using full pipeline (GridSearchCV) on X_train:
 {'model__C': 1, 'model__dual': False, 'model__fit_intercept': True, 'model__solver': 'liblinear'}
 F1-score using full pipeline (GridSearchCV) on X_train: 
 0.8441797148195169
+
+
+v88.0
+
+Selected features: {'cat': ['isFrequentReviewer', 'audScoreBins', 'boxOfficeBins'], 'num': ['releaseDiff'], 'txt': ['reviewText', 'reviewerName', 'movieid', 'genre', 'director', 'ratingContents', 'distributor', 'reviewText_2']}
+Pipeline built successfully.
+
+Confusion matrix and f1-score for rows which have no reviewText in X_train: 
+[[1833  572]
+ [ 290 3752]]
+0.8662944004963549
+Check 3 complete.
+Shape of X_test: (55315, 12)
+Features in X_train: Index(['isFrequentReviewer', 'audScoreBins', 'boxOfficeBins', 'releaseDiff',
+       'reviewText', 'reviewerName', 'movieid', 'genre', 'director',
+       'ratingContents', 'distributor', 'reviewText_2'],
+      dtype='object')
+Check 4 complete.
+Best params obtained using full pipeline (GridSearchCV) on X_train: 
+{'model__C': 1, 'model__dual': False, 'model__fit_intercept': True, 'model__solver': 'liblinear'}
+F1-score using full pipeline (GridSearchCV) on X_train: 
+0.8447203919787656
+
