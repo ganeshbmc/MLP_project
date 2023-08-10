@@ -80,9 +80,12 @@ Try Bagging/boosting		-	DONE	-	AdaBoost is bad!
 
 ## Last minute dash  
 	- Use the remaining features from movies dataset
-	- Drop rows with more than 7 missing values in train
 	- Interrelationship between 'isFrequentReviewer', 'rating', 'audienceScore'
 
+
+	- Drop rows with more than 7 missing values in train
+	- Interrelationship between 'isFrequentReviewer', 'rating', 'audienceScore'
+	- runtimeDiff ROC curve  
 
 ## Finishing touches  
 	- Show minimum 3 models!
@@ -94,3 +97,13 @@ Try Bagging/boosting		-	DONE	-	AdaBoost is bad!
     	- Domain expertise  
     	- EDA  
   	- Remove all redundant code  
+
+# IMPORTANT
+
+  - Do not do merge.first() on movies dataset
+  - Do imputations in submit_v4 function instead of in select_features function
+  - Move vocabulary generation into submit_v4 function
+  - Generate vocabulary on train set only
+  - Try to use custom stop_words built from common words in positive and negative sentiment rows
+  - Use stratified split (based on isFrequentReviewer) instead of train_test_split - use k-fold crossvalidation
+  - 
