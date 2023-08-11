@@ -1,0 +1,149 @@
+# def submit_v4(models={'model_1': {'model': LogisticRegression(C=1, solver='liblinear', max_iter=100000),
+#                                  'param_grid': None}
+#                      }, 
+#               selected_features={'txt': ['reviewText']}, 
+#               param_grid=None,
+#               vocab=None,
+#               vocab_usage='tfidf',
+#               strip_accents='unicode', 
+#               add_countvec=False):
+    
+#     print("\nRunning the submit_v4 function...")
+    
+#     # Fine tune selected_features
+#     if add_countvec:
+#         if 'txt' in selected_features.keys():
+#             if "reviewText_2" not in selected_features['txt']:
+#                 selected_features['txt'].append('reviewText_2')
+#     if vocab:
+#         if 'txt' in selected_features.keys():
+#             if "reviewText_3" not in selected_features['txt']:
+#                 selected_features['txt'].append('reviewText_3')
+#     print(f"\nSelected features: {selected_features}")
+    
+    
+#     # Features list
+#     features = []
+#     for item in selected_features.values():
+#         features.extend(item)
+ 
+
+#     # Merge and preprocess train and movies data  
+#     merged = select_features(load_csv("train"), load_csv("movies"), row_thresh_null=None)    # Decide if you want to drop any rows containing lot of nulls
+#     # Impute missing numerical values  
+#     # Simple Imputer for ['audienceScore', 'runtimeMinutes', 'boxOffice'] and 'releaseDate' columns
+#     si = SimpleImputer(strategy='median')
+#     merged[['audienceScore', 'runtimeMinutes', 'boxOffice']] = si.fit_transform(merged[['audienceScore', 'runtimeMinutes', 'boxOffice']])
+#     merged['releaseDate'] = merged["releaseDate"].fillna(merged["releaseDate"].median())    
+#     # Add new columns as needed  
+#     if add_countvec:
+#         merged['reviewText_2'] = merged['reviewText']
+#     if vocab:
+#         merged['reviewText_3'] = merged['reviewText']
+        
+#     X_train = merged.drop(labels="sentiment", axis=1)
+#     y_train = merged["sentiment"]
+
+#     X_train = X_train[features]
+#     print(f"\nPreprocessing of training data complete.")
+
+    
+# #     # Duplicate reviewText column to use both CountVectorizer and TfidfVectorizer
+# #     if add_countvec and ("reviewText" in features):
+# #         X_train['reviewText_2'] = X_train['reviewText']
+    
+#     # Check1
+#     print("\nCheck 1 complete.")
+#     print(f"Shape of X_train: {X_train.shape}")
+#     print(f"Features in X_train: {X_train.columns}")
+# #     print(X_train.head())
+    
+# #     if not param_grid:
+# #         try:
+# #             print(pipe.named_steps['model'].intercept_, pipe.named_steps['model'].coef_)
+# #         except:
+# #             print("Model not trained yet!")
+    
+# #     # Fit 
+# #     print("\nTraining started with full pipeline...")
+# #     pipe.fit(X_train, y_train)
+    
+        
+#     # Build Pipeline
+#     if len(models) == 1:
+#         selected_model = models['model_1']['model']
+#         param_grid = models['model_1']['param_grid']
+#         pipe = build_pipeline(selected_model, selected_features, param_grid=param_grid, 
+#                               vocab=vocab, vocab_usage='tfidf', 
+#                               strip_accents=strip_accents, add_countvec=add_countvec)
+#         print(pipe)
+#         print("\nTraining started with full pipeline...")
+        
+#         # Fit on train data
+#         pipe.fit(X_train, y_train)
+#     elif len(models) > 1:
+#         fitted_models = []
+#         for k, v in models.items:
+#             pipe = 
+    
+    
+#     # Check2
+#     print("\nCheck 2 complete.")
+#     print("Details of the best model using full pipeline (GridSearchCV) on X_train: ")
+#     print(f"Best Params: {pipe.best_params_}")
+#     print(f"Best Score: {pipe.best_score_}")
+    
+#     print(predict_on_missing_review_data(pipe, features, merged))    # Function defined above
+    
+        
+        
+#     # Predict on test.csv file
+    
+#     # Merge and preprocess test and movies data  
+#     merged_test = select_features(load_csv("test"), load_csv("movies"))
+#     # Transform ['audienceScore', 'runtimeMinutes', 'boxOffice'] columns in merged_test using 'si' fitted on 'merged' df  
+#     merged_test[['audienceScore', 'runtimeMinutes', 'boxOffice']] = si.transform(merged_test[['audienceScore', 'runtimeMinutes', 'boxOffice']])
+#     # Fill 'releaseDate' column in 'merged_test' df with median from the train (merged) df  
+#     merged_test['releaseDate'] = merged_test["releaseDate"].fillna(merged["releaseDate"].median())
+#     # Add new columns as needed 
+#     if add_countvec:
+#         merged_test['reviewText_2'] = merged_test['reviewText']
+#     if vocab:
+#         merged_test['reviewText_3'] = merged_test['reviewText']
+        
+#     X_test = merged_test.copy()
+#     X_test = X_test[features]
+#     print(f"\nPreprocessing of test data complete.")
+
+    
+# #     # Duplicate reviewText column to use both CountVectorizer and TfidfVectorizer
+# #     if add_countvec and ("reviewText" in features):
+# #         X_test['reviewText_2'] = X_test['reviewText']
+    
+#     # Check3
+#     print("\nCheck 3 complete.")
+#     print(f"Shape of X_test: {X_test.shape}")
+#     print(f"Features in X_train: {X_test.columns}")
+# #     print(X_test.head())
+    
+#     y_pred = pipe.predict(X_test)
+    
+#     # Check4
+#     print("\nCheck 4 complete.")
+# #     cv_results_df = pd.DataFrame(pipe.cv_results_)
+#     print("Details of the best model using full pipeline (GridSearchCV) on X_train: ")
+#     print(f"Best Estimator: {pipe.best_estimator_}")
+#     print(f"Best Params: {pipe.best_params_}")
+#     print(f"Best Score: {pipe.best_score_}")
+#     print(f"Best Index: {pipe.best_index_}")
+#     print(f"Refit Time: {pipe.refit_time_}")
+# #     print(f"Shape of CV results dataframe: {cv_results_df.shape}")
+    
+#     pred_df = pd.DataFrame(y_pred)
+#     pred_df.columns = ["sentiment"]
+#     pred_df.index.name = "id"
+#     pred_df.to_csv("submission.csv")
+    
+#     print("\nSuccessfully created the submission file!!!")
+    
+#     return pipe.cv_results_

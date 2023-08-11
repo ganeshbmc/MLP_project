@@ -100,7 +100,7 @@ Try Bagging/boosting		-	DONE	-	AdaBoost is bad!
 
 # IMPORTANT
 
-  - Do not do merge.first() on movies dataset
+  - Do not do merge.first() on movies dataset	- DISCARD IDEA  
   - Do imputations in submit_v4 function instead of in select_features function
   - Move vocabulary generation into submit_v4 function
   - Generate vocabulary on train set only
