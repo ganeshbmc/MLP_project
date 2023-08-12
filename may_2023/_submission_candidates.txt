@@ -1,0 +1,76 @@
+Submission candidates:
+
+12.08.2023
+
+
+***v160***
+SGDC Modified huber sf_best
+
+Selected features: {'cat': ['isFrequentReviewer'], 'num': ['audienceScore', 'boxOffice', 'releaseDiff'], 'txt': ['reviewText', 'reviewerName', 'movieid', 'genre', 'director', 'ratingContents', 'distributor', 'reviewText_2', 'reviewText_3']}
+
+Best Params: {'model__alpha': 0.0001, 'model__loss': 'modified_huber', 'model__n_iter_no_change': 100, 'model__penalty': 'l2', 'model__tol': 0.0001}
+Best Score: 0.8424163547469741
+Confusion matrix and f1-score for rows which have no reviewText in X_train: 
+[[1680  725]
+ [ 262 3780]]
+0.8469055374592833
+
+
+
+
+***v186***
+SGDC Modified huber sf_best
+
+Selected features: {'cat': ['isFrequentReviewer'], 'num': ['audienceScore', 'boxOffice', 'releaseDiff'], 'txt': ['reviewText', 'reviewerName', 'movieid', 'genre', 'director', 'ratingContents', 'distributor', 'reviewText_2', 'reviewText_3']}
+
+Best Params: {'model__alpha': 0.0001}
+Best Score: 0.8427604260454924
+Confusion matrix and f1-score for rows which have no reviewText in X_train: 
+[[1602  803]
+ [ 224 3818]]
+0.8407011012874205
+classifier_1 successfully added to 'estimators' list
+Confusion matrix for predictions on training data: 
+[[ 53146    851]
+ [   236 108525]]
+F1-score on training data: 0.9933213728357438
+
+
+
+
+***v188***
+SGDC Modified huber sf_best
+
+Selected features: {'cat': ['isFrequentReviewer'], 'num': ['audienceScore', 'boxOffice', 'releaseDiff'], 'txt': ['reviewText', 'reviewerName', 'movieid', 'genre', 'director', 'ratingContents', 'distributor', 'reviewText_2', 'reviewText_3']}
+
+Best Params: {'model__alpha': 0.0001}
+Best Score: 0.8436328921344897
+Confusion matrix and f1-score for rows which have no reviewText in X_train: 
+[[1845  560]
+ [ 446 3596]]
+0.8439584302776485
+classifier_1 successfully added to 'estimators' list
+Confusion matrix for predictions on training data: 
+[[ 53413    584]
+ [   491 108270]]
+F1-score on training data: 0.9933951019304734
+
+
+
+
+***v188***
+SGDC Modified huber v88_dict
+
+Selected features: {'cat': ['isFrequentReviewer', 'audScoreBins', 'boxOfficeBins'], 'num': ['releaseDiff'], 'txt': ['reviewText', 'reviewerName', 'movieid', 'genre', 'director', 'ratingContents', 'distributor', 'reviewText_2', 'reviewText_3']}
+
+Best Params: {'model__alpha': 0.0001}
+Best Score: 0.8430922093125535
+Confusion matrix and f1-score for rows which have no reviewText in X_train: 
+[[1724  681]
+ [ 279 3763]]
+0.8510935318752908
+classifier_1 successfully added to 'estimators' list
+Confusion matrix for predictions on training data: 
+[[ 53285    712]
+ [   293 108468]]
+F1-score on training data: 0.9938251883163961
