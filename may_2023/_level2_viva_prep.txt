@@ -1,4 +1,5 @@
 * Single label binary classification problem
+* Supervised ML technique
 
 * Domain expertise
 * Absence of neutral class
