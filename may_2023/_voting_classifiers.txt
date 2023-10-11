@@ -1,0 +1,27 @@
+# First attempt  
+
+classifiers= [
+                {'selected_model' : RandomForestClassifier(n_jobs = -1), 
+                  'selected_features' : sfs, 
+                  'param_grid': {'model__n_estimators': [100]},
+                  'vocab' : None,
+                  'vocab_usage' : 'tfidf',
+                  'strip_accents' : 'unicode', 
+                  'add_countvec' : False},
+    
+                {'selected_model' : sgdc, 
+                  'selected_features' : alt_text, 
+                  'param_grid': {"model__alpha": [0.0001]},
+                  'vocab' : None,
+                  'vocab_usage' : 'tfidf',
+                  'strip_accents' : 'unicode', 
+                  'add_countvec' : False},
+    
+                {'selected_model' : sgdc, 
+                  'selected_features' : sf_best, 
+                  'param_grid' : {"model__alpha": [0.0001]},
+                  'vocab' : True,
+                  'vocab_usage' : 'tfidf',
+                  'strip_accents' : 'unicode', 
+                  'add_countvec' : True}
+            ]

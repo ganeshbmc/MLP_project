@@ -1,0 +1,151 @@
+def preprocessor():
+    
+    # Merge and preprocess train and movies data  
+    merged = select_features(load_csv("train"), load_csv("movies"), row_thresh_null=None)    # Decide if you want to drop any rows containing lot of nulls
+    # Impute missing numerical values  
+    # Simple Imputer for ['audienceScore', 'runtimeMinutes', 'boxOffice'] and 'releaseDate' columns
+    si = SimpleImputer(strategy='median')
+    merged[['audienceScore', 'runtimeMinutes', 'boxOffice']] = si.fit_transform(merged[['audienceScore', 'runtimeMinutes', 'boxOffice']])
+    merged['releaseDate'] = merged["releaseDate"].fillna(merged["releaseDate"].median())    
+        
+    X_train = merged.drop(labels="sentiment", axis=1)
+    y_train = merged["sentiment"]
+
+#     X_train = X_train[features]
+       
+    # Check1 (preprocessor)
+    print("\nCheck 1 complete.")
+    print(f"Shape of X_train: {X_train.shape}")
+    print(f"Features in X_train: {X_train.columns}")
+#     print(X_train.head())
+
+
+    # Merge and preprocess test and movies data  
+    merged_test = select_features(load_csv("test"), load_csv("movies"))
+    # Transform ['audienceScore', 'runtimeMinutes', 'boxOffice'] columns in merged_test using 'si' fitted on 'merged' df  
+    merged_test[['audienceScore', 'runtimeMinutes', 'boxOffice']] = si.transform(merged_test[['audienceScore', 'runtimeMinutes', 'boxOffice']])
+    # Fill 'releaseDate' column in 'merged_test' df with median from the train (merged) df  
+    merged_test['releaseDate'] = merged_test["releaseDate"].fillna(merged["releaseDate"].median())
+        
+    X_test = merged_test.copy()
+#     X_test = X_test[features]
+    
+    # Check2 (preprocessor)
+    print("\nCheck 2 complete.")
+    print(f"Shape of X_test: {X_test.shape}")
+    print(f"Features in X_test: {X_test.columns}")
+#     print(X_test.head())
+
+    return X_train, y_train, X_test
+    
+
+
+
+
+
+def submit_v5(classifiers= [
+                {'selected_model' : LogisticRegression(C=1, solver='saga', max_iter=100000), 
+                  'selected_features' : {'txt': ['audienceScore']}, 
+                  'param_grid' : None,
+                  'vocab' : None,
+                  'vocab_usage' : 'tfidf',
+                  'strip_accents' : 'unicode', 
+                  'add_countvec' : False}
+              ]):
+    
+    """Takes a list of dictionaries each with same keys as mentioned in the default dictionary in function definition"""
+    
+    print("\nRunning the submit_v5 function...")
+    
+    X_train, y_train, X_test = preprocessor()
+    
+    estimators = []     # List of tuples of the form ('classifier_name', 'classifer_instance')
+    
+    # Build a dataframe of predictions  
+    predictions_df = pd.DataFrame()
+    
+    # Build a separate pipeline and fit it on selected features (and param_grid) for each item in classifiers list
+    for n, item in enumerate(classifiers, start=1):
+        selected_model = item['selected_model']
+        selected_features = item['selected_features']
+        param_grid = item['param_grid']
+        vocab = item['vocab']
+        vocab_usage = item['vocab_usage']
+        strip_accents = item['strip_accents']
+        add_countvec = item['add_countvec']
+    
+    
+        # Fine tune selected_features
+        if add_countvec:
+            if 'txt' in selected_features.keys():
+                if "reviewText_2" not in selected_features['txt']:
+                    selected_features['txt'].append('reviewText_2')
+        if vocab:
+            if 'txt' in selected_features.keys():
+                if "reviewText_3" not in selected_features['txt']:
+                    selected_features['txt'].append('reviewText_3')
+        print(f"\nSelected features: {selected_features}")
+        
+        # Modify X_train for the given 'item' by creating a custom 'features' list
+        features = []
+        for item in selected_features.values():
+            features.extend(item)
+            
+        X_train_modified = X_train[features].copy()
+
+        # Build Pipeline
+        pipe = build_pipeline(selected_model, selected_features, param_grid=param_grid, 
+                              vocab=vocab, vocab_usage='tfidf', 
+                              strip_accents=strip_accents, add_countvec=add_countvec)
+        print(pipe)
+
+        
+        # Fit 
+        print(f"\nTraining started with full pipeline for classifier #{n}...")
+        pipe.fit(X_train_modified, y_train)
+        
+
+        # Check1
+        print(f"\nCheck #{n}.1 complete.")
+        print(f"Details of the best model using classifier #{n} (GridSearchCV) on X_train: ")
+        print(f"Best Params: {pipe.best_params_}")
+        print(f"Best Score: {pipe.best_score_}")
+        
+        print(predict_on_missing_review_data(pipe, features, merged))    # Function defined above
+        
+        estimators.push((f"classifier_{n}", pipe))
+        print(f"classifier_{n} successfully added to 'estimators' list")
+
+        
+        # Predict on test.csv file
+        X_test_modified = X_test[features]
+    
+        y_pred = pipe.predict(X_test_modified)
+        
+        # Insert predictions in 'predictions_df' dataframe
+        predictions_df.insert(n-1, f"pred_1", y_pred, allow_duplicates=False)
+        print(predictions_df.shape)
+        print(predictions_df.head(10))
+        
+    
+        # Check2
+        print("\nCheck #{n}.2 complete.")
+    #     cv_results_df = pd.DataFrame(pipe.cv_results_)
+        print("Details of the best model using full pipeline (GridSearchCV) on X_train: ")
+#         print(f"Best Estimator: {pipe.best_estimator_}")
+        print(f"Best Params: {pipe.best_params_}")
+        print(f"Best Score: {pipe.best_score_}")
+#         print(f"Best Index: {pipe.best_index_}")
+        print(f"Refit Time: {pipe.refit_time_}")
+    #     print(f"Shape of CV results dataframe: {cv_results_df.shape}")
+    
+    return predictions_df
+    
+#     pred_df = pd.DataFrame(y_pred)
+#     pred_df.columns = ["sentiment"]
+#     pred_df.index.name = "id"
+#     pred_df.to_csv("submission.csv")
+    
+#     print("\nSuccessfully created the submission file!!!")
+    
+#     return pipe.cv_results_

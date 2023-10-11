@@ -1,0 +1,52 @@
+movie_id,audience_score,run_time,genre,release_date,director,language,soundtype,rating
+1,8.5,120,Action,2021-05-15,John Doe,English,Dolby Digital,PG-13
+1,,,Comedy,,Jane Smith,,,
+1,,110,,,,English,DTS-HD,
+2,7.9,,,2020-11-20,,,Dolby Digital,
+2,7.4,95,,2020-11-20,,,Dolby Digital,
+3,6.3,105,,2019-09-10,Alice Johnson,,DTS-HD,
+3,6.1,,,2019-09-10,Alice Johnson,,DTS-HD,
+4,8.0,,Action,,Jane Smith,English,Dolby Digital,
+4,7.2,100,,2018-07-25,Jane Smith,,Dolby Digital,
+5,,130,Action,2017-12-01,John Doe,,Dolby Digital,
+5,8.0,,Action,2017-12-01,John Doe,English,Dolby Digital,PG-13
+6,6.9,135,Drama,2022-03-05,Emily Adams,English,Dolby Atmos,PG-13
+6,,,Comedy,2022-03-05,Emily Adams,English,Dolby Atmos,PG
+7,,110,Comedy,2016-09-30,Jane Smith,English,Dolby Digital,PG-13
+7,7.1,110,Comedy,2016-09-30,Jane Smith,English,Dolby Digital,PG
+8,7.8,,Romance,2015-05-12,Alice Johnson,English,DTS-HD,PG
+8,,105,,2015-05-12,Alice Johnson,English,DTS-HD,PG-13
+9,,120,Drama,2020-02-18,John Doe,,Dolby Digital,R
+9,,,Drama,2020-02-18,John Doe,,Dolby Digital,R
+10,,,Comedy,,Emily Adams,English,DTS-HD,PG
+10,6.0,95,Comedy,2019-08-15,Emily Adams,,DTS-HD,PG-13
+11,,100,Action,2018-04-27,Emily Adams,,Dolby Digital,PG-13
+11,7.5,,Action,2018-04-27,Emily Adams,,Dolby Digital,PG
+12,6.8,105,Drama,2017-03-02,John Doe,,Dolby Digital,PG-13
+12,,100,,2017-03-02,John Doe,English,Dolby Digital,PG
+13,,,Romance,2016-01-10,Alice Johnson,English,,PG
+13,6.4,110,Romance,2016-01-10,Alice Johnson,English,,PG-13
+14,8.9,,Comedy,,Jane Smith,English,,R
+14,,120,,2018-11-05,Jane Smith,English,,R
+15,7.5,130,Action,2015-09-20,John Doe,English,,PG
+15,7.5,,Action,2015-09-20,John Doe,English,Dolby Digital,PG-13
+16,7.0,135,Drama,2022-12-15,Emily Adams,English,Dolby Atmos,PG-13
+16,,140,Comedy,2022-12-15,Emily Adams,English,Dolby Atmos,PG
+17,6.2,100,Comedy,2016-10-08,Jane Smith,English,Dolby Digital,PG-13
+17,,100,Comedy,2016-10-08,Jane Smith,English,Dolby Digital,PG
+18,7.7,105,Romance,2015-06-21,Alice Johnson,English,DTS-HD,PG
+18,7.7,,Romance,2015-06-21,Alice Johnson,English,DTS-HD,PG-13
+19,6.9,120,Drama,2020-03-19,John Doe,English,Dolby Digital,R
+19,6.9,,Drama,2020-03-19,John Doe,English,Dolby Digital,R
+20,,,Comedy,,Emily Adams,English,DTS-HD,PG
+20,6.5,95,Comedy,2019-09-25,Emily Adams,English,DTS-HD,PG-13
+21,,100,Action,2018-05-03,Emily Adams,English,Dolby Digital,PG-13
+21,7.2,,Action,2018-05-03,Emily Adams,English,Dolby Digital,PG
+22,7.1,105,Drama,2017-03-15,John Doe,English,Dolby Digital,PG-13
+22,,100,,2017-03-15,John Doe,English,Dolby Digital,PG
+23,,,Romance,2016-02-20,Alice Johnson,English,DTS-HD,PG
+23,6.7,110,Romance,2016-02-20,Alice Johnson,English,DTS-HD,PG-13
+24,8.8,,Comedy,,Jane Smith,English,Dolby Digital,R
+24,,120,,2018-12-10,Jane Smith,English,Dolby Digital,R
+25,7.8,130,Action,2015-10-30,John Doe,English,Dolby Digital,PG
+25,7.8,,Action,2015-10-30,John Doe,English,Dolby Digital,PG-13

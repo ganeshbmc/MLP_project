@@ -1,0 +1,143 @@
+# Function to build pipelines for GridSearchCV which goes into the final 'submit' function  
+def build_pipeline(selected_model=LogisticRegression(), 
+                   selected_features={'txt': ['reviewText']}, 
+                   param_grid=None,
+                   vocab=None,
+                   vocab_usage='tfidf',
+                   strip_accents='unicode', 
+                   add_countvec=False):
+    # Encoders  
+    ohe = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
+    MMscaler = MinMaxScaler()
+    StdScaler = StandardScaler()
+    RobScaler = RobustScaler()
+    
+    # Text features ['reviewText', 'reviewerName', 'movieid', 'genre', 'director']
+    tfidf_vec = TfidfVectorizer(ngram_range=(1,2))
+    count_vec = CountVectorizer(ngram_range=(1,2))
+    txt_pipe = Pipeline(steps=[
+                            ("tvec", TfidfVectorizer(ngram_range=(1,3), strip_accents=strip_accents))    # Adjust ngram_range here for reviewText
+                        ])
+    txt_pipe_vocab = Pipeline(steps=[
+                            ("tvec", TfidfVectorizer(ngram_range=(1,3), strip_accents=strip_accents, vocabulary=vocab))    # Adjust ngram_range here for reviewText
+                        ])
+    txt_pipe_2 = Pipeline(steps=[
+                            ("tvec", TfidfVectorizer(ngram_range=(2,2)))
+                        ])
+    txt_pipe_3 = Pipeline(steps=[
+                            ("tvec", TfidfVectorizer(ngram_range=(1,1)))
+                        ])
+    txt_pipe_4 = Pipeline(steps=[
+                            ("tvec", TfidfVectorizer(ngram_range=(1,3)))    # Adjust ngram_range here for reviewText
+                        ])
+    txt_pipe_title  = Pipeline(steps=[
+                            ("tvec", TfidfVectorizer(ngram_range=(1,5)))    # Adjust ngram_range here for reviewText
+                        ])
+    
+    # Additional pipes for count vectorizer
+    txt_pipe_countvec = Pipeline(steps=[
+                            ("cvec", CountVectorizer(ngram_range=(1,3), strip_accents=strip_accents))    # Adjust ngram_range here for reviewText
+                        ])
+    txt_pipe_countvec_vocab = Pipeline(steps=[
+                            ("cvec", CountVectorizer(ngram_range=(1,3), strip_accents=strip_accents, vocabulary=vocab))    # Adjust ngram_range here for reviewText
+                        ])
+    
+    txt_pipe_countvec_ratingContents = Pipeline(steps=[
+                            ("cvec", CountVectorizer(ngram_range=(1,5)))    # Adjust ngram_range here for reviewText
+                        ])
+    txt_pipe_countvec_rcSorted = Pipeline(steps=[
+                            ("cvec", CountVectorizer(ngram_range=(1,1)))    # Adjust ngram_range here for reviewText
+                        ])
+    txt_pipe_countvec_genre = Pipeline(steps=[
+                            ("cvec", CountVectorizer(ngram_range=(1,1)))
+                        ])
+    txt_pipe_countvec_genreSorted = Pipeline(steps=[
+                            ("cvec", CountVectorizer(ngram_range=(1,5)))
+                        ])
+    txt_pipe_countvec_distributor = Pipeline(steps=[
+                            ("cvec", CountVectorizer(ngram_range=(1,3)))    # Adjust ngram_range here for reviewText
+                        ])
+    txt_pipe_countvec_title = Pipeline(steps=[
+                            ("cvec", CountVectorizer(ngram_range=(1,5), strip_accents=strip_accents))
+                        ])
+    txt_pipe_countvec_movieid = Pipeline(steps=[
+                            ("cvec", CountVectorizer(ngram_range=(1,1)))
+                        ])
+    # Basic pipes  
+    TFs = []
+    try:
+        for c in selected_features['cat']:
+            TFs.append((f"cat_{c}", ohe, [c]))
+    except:
+        pass
+    try:
+        for n in selected_features['num']:
+            if n in ["runtimeMinutes", "boxOffice", "releaseDiff"]:
+                TFs.append((f"num_{n}", RobScaler, [n]))
+                TFs.append((f"num_{n}_ss", StdScaler, [n]))
+                
+            else:
+                TFs.append((f"num_{n}", StdScaler, [n]))
+    except:
+        pass
+    try:
+        for t in selected_features['txt']:
+            if t in ['director', 'reviewerName']:
+                TFs.append((f"txt_{t}", txt_pipe_2, t))
+            elif t in ["originalLanguage", "releaseYear"]:
+                TFs.append((f"txt_{t}", txt_pipe_3, t))
+            elif t in ['genre']:
+                TFs.append((f"txt_{t}", txt_pipe_countvec_genre, t))
+            elif t in ["genreSorted"]:
+                TFs.append((f"txt_{t}", txt_pipe_countvec_genreSorted, t))
+            elif t in ["distributor"]:
+                TFs.append((f"txt_{t}", txt_pipe_countvec_distributor, t))
+            elif t in ['reviewText']:
+#                 if vocab and (vocab_usage in ["tfidf", "both"]):
+#                     txt_pipe.set_params(tvec__vocabulary=vocab)
+#                     txt_pipe.set_params(tvec__stop_words='english')
+                TFs.append((f"txt_{t}", txt_pipe, t))
+            elif t in ['reviewText_2']:
+                if add_countvec:
+#                     if vocab and (vocab_usage in ["count", "both"]):
+#                         txt_pipe_countvec.set_params(cvec__vocabulary=vocab)
+#                         txt_pipe_countvec.set_params(cvec__stop_words='english')
+                    TFs.append((f"txt_{t}", txt_pipe_countvec, t))
+            elif t in ['reviewText_3']:
+                if vocab_usage == 'tfidf':
+                    TFs.append((f"txt_{t}", txt_pipe_vocab, t))
+                elif vocab_usage == 'count':
+                    TFs.append((f"txt_{t}", txt_pipe_countvec_vocab, t))
+            elif t in ["ratingContents"]:
+                TFs.append((f"txt_{t}", txt_pipe_countvec_ratingContents, t))
+            elif t in ["rcSorted"]:
+                TFs.append((f"txt_{t}", txt_pipe_countvec_rcSorted, t))
+            elif t in ["title"]:
+                TFs.append((f"txt_{t}", txt_pipe_title, t))
+            elif t in ["movieid"]:
+                TFs.append((f"txt_{t}", txt_pipe_countvec_movieid, t))
+            else:
+                pass
+    except:
+        pass
+
+    # Build ColumnTransformer  
+    ct = ColumnTransformer(transformers=TFs, remainder='drop')
+
+    # Build Pipeline
+    pipe = Pipeline(steps=[('ct', ct), ('model', selected_model)])
+    print("\nPipeline built successfully.")
+
+    # Use the pipe in GridSearchCV
+    if param_grid == None:
+        param_grid_temp = {"model__C": [1],
+                     'model__solver': ['liblinear']}
+        print("Full GridSearchCV pipeline built successfully with basic default param_grid.\n")
+        pipeCV = GridSearchCV(pipe, param_grid_temp, cv=10, scoring="f1_micro", n_jobs=-1)
+        return pipeCV
+    
+    # GridSearchCV if param_grid provided
+    if param_grid:
+        pipeCV = GridSearchCV(pipe, param_grid, cv=10, scoring="f1_micro", n_jobs=-1)
+        print("\nFull GridSearchCV pipeline built successfully.")
+        return pipeCV

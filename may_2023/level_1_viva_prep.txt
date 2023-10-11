@@ -1,0 +1,7 @@
+Add EDA.  
+	Part 1:
+		Pie for sentiment  
+
+Add models as per milestones.  
+Add annotations.  
+Add plan for remaining two weeks.

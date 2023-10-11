@@ -1,0 +1,30 @@
+* Single label binary classification problem
+* Supervised ML technique
+
+* Domain expertise
+* Absence of neutral class
+* Accuracy, f1-score, roc_auc, prc_auc
+    * https://neptune.ai/blog/f1-score-accuracy-roc-auc-pr-auc#:~:text=F1%20score%20vs%20Accuracy&text=Remember%20that%20the%20F1%20score,observations%20both%20positive%20and%20negative.
+* Do we have enough training data?
+    * Word count argument
+    * Why feature selection techniques did not work as expected? Why did I observe that 'more was better' in this project?
+    * Restrictions on libraries
+        - Meaning of text not assessed with current approaches - No stemming, lemmatizations, word/phrase associations etc.
+        - Why I did not take that route?
+            - Lack of knowledge (about language structure and implementation of techniques)
+            - Lack of time (relative) - Choice - Chose to focus on other ML techniques that are not specific to text based data (because this is my first ML project)
+            - Better libraries available (not allowed for this project) - will explore after project is over
+            - 
+
+
+* Why/How did I choose this final pipeline (preprocessing + model)?
+    - Evaluation metrics (is it enough?)
+    - Objective of the project (Interested in TPR, PPV, TNR etc)
+    - Generalizability, overfitting (CV scores)
+    - Training time
+    - Complexity - size feature space
+    - Explainability
+    - Deployment and post-deployment maintenance and time taken to predict
+        - Single vs bulk predictions 
+        - One time training vs retraining ability vs topping the competition?
+        - KNN components

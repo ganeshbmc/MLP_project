@@ -1,0 +1,25 @@
+Univariable analysis (07.08.2023)
+
+isFrequentReviewer	- 0.6682375063186153
+rating			- 0.6682375063186153
+releaseYear		- 0.6682313623028866
+releaseMonth		- 0.6682375063186153
+audienceScore		- 0.6906818664519376, 0.6930473181701668	**
+runtimeMinutes		- 0.6682375063186153, 0.6687290298419846
+boxOffice		- 0.6682375063186153, 0.6944051520639174	*
+releaseDiff		- 0.6682375063186153, 0.68169304723927		*
+
+reviewerName	- 0.6721328334312978
+movieid			- 0.7432261186544398, 0.7434350155667274	****
+genre			- 0.6681453396649728, 0.6777485434624463	*
+director		- 0.7183057122546972				***
+ratingContents		- 0.7150063305068974				***
+
+distributor		- 0.6758500327869597				*
+title           - 0.7381572396135934                ****
+
+Insights
+
+Categorize boxOffice, audienceScore, releaseDiff and try
+
+Try higher ngram_range for genre

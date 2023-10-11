@@ -1,0 +1,130 @@
+v80
+
+Selected features: {'cat': ['isFrequentReviewer', 'audScoreBins', 'boxOfficeBins'], 'txt': ['reviewText', 'reviewerName', 'movieid', 'genre', 'director', 'ratingContents', 'distributor', 'reviewText_2']}
+
+Confusion matrix and f1-score for rows which have no reviewText in X_train: 
+[[1822  583]
+ [ 298 3744]]
+0.86334729331472
+Check 3 complete.
+Shape of X_test: (55315, 11)
+Features in X_train: Index(['isFrequentReviewer', 'audScoreBins', 'boxOfficeBins', 'reviewText',
+       'reviewerName', 'movieid', 'genre', 'director', 'ratingContents',
+       'distributor', 'reviewText_2'],
+      dtype='object')
+Check 4 complete.
+Best params obtained using full pipeline (GridSearchCV) on X_train: 
+{'model__C': 1, 'model__dual': False, 'model__fit_intercept': True, 'model__solver': 'liblinear'}
+F1-score using full pipeline (GridSearchCV) on X_train: 
+0.845267216173843
+
+
+v81
+
+Selected features: {'cat': ['isFrequentReviewer', 'audScoreBins', 'boxOfficeBins'], 'txt': ['reviewText', 'reviewerName', 'movieid', 'genre', 'genreSorted', 'ratingContents', 'rcSorted', 'director', 'distributor', 'reviewText_2']}
+
+Confusion matrix and f1-score for rows which have no reviewText in X_train: 
+[[1834  571]
+ [ 287 3755]]
+0.8669148441135411
+
+Check 3 complete.
+Shape of X_test: (55315, 13)
+Features in X_train: Index(['isFrequentReviewer', 'audScoreBins', 'boxOfficeBins', 'reviewText',
+       'reviewerName', 'movieid', 'genre', 'genreSorted', 'ratingContents',
+       'rcSorted', 'director', 'distributor', 'reviewText_2'],
+      dtype='object')
+Check 4 complete.
+Best params obtained using full pipeline (GridSearchCV) on X_train: 
+{'model__C': 1, 'model__dual': False, 'model__fit_intercept': True, 'model__solver': 'liblinear'}
+F1-score using full pipeline (GridSearchCV) on X_train: 
+0.8446835373222058
+
+
+
+v82
+
+Selected features: {'cat': ['isFrequentReviewer', 'rating', 'audScoreBins', 'boxOfficeBins'], 'txt': ['reviewText', 'reviewerName', 'movieid', 'ratingContents', 'rcSorted', 'director', 'distributor', 'reviewText_2']}
+
+Confusion matrix and f1-score for rows which have no reviewText in X_train: 
+[[1817  588]
+ [ 290 3752]]
+0.8638126260276098
+Check 3 complete.
+Shape of X_test: (55315, 12)
+Features in X_train: Index(['isFrequentReviewer', 'rating', 'audScoreBins', 'boxOfficeBins',
+       'reviewText', 'reviewerName', 'movieid', 'ratingContents', 'rcSorted',
+       'director', 'distributor', 'reviewText_2'],
+      dtype='object')
+Check 4 complete.
+Best params obtained using full pipeline (GridSearchCV) on X_train: 
+{'model__C': 1, 'model__dual': False, 'model__fit_intercept': True, 'model__solver': 'liblinear'}
+F1-score using full pipeline (GridSearchCV) on X_train: 
+0.8444009069359991
+
+
+v83
+
+Selected features: {'cat': ['isFrequentReviewer', 'rating', 'audScoreBins', 'boxOfficeBins'], 'txt': ['reviewText', 'reviewerName', 'movieid', 'title', 'genreSorted', 'ratingContents', 'rcSorted', 'director', 'distributor', 'reviewText_2']}
+
+Confusion matrix and f1-score for rows which have no reviewText in X_train: 
+[[1887  518]
+ [ 270 3772]]
+0.8777726074143012
+Check 3 complete.
+Shape of X_test: (55315, 14)
+Features in X_train: Index(['isFrequentReviewer', 'rating', 'audScoreBins', 'boxOfficeBins',
+       'reviewText', 'reviewerName', 'movieid', 'title', 'genreSorted',
+       'ratingContents', 'rcSorted', 'director', 'distributor',
+       'reviewText_2'],
+      dtype='object')
+Check 4 complete.
+Best params obtained using full pipeline (GridSearchCV) on X_train: 
+{'model__C': 1, 'model__dual': False, 'model__fit_intercept': True, 'model__solver': 'liblinear'}
+F1-score using full pipeline (GridSearchCV) on X_train: 
+0.8444131923248692
+
+
+v85
+
+Selected features: {'cat': ['isFrequentReviewer', 'rating', 'audScoreBins', 'boxOfficeBins'], 'num': ['audienceScore', 'boxOffice', 'runtimeMinutes'], 'txt': ['reviewText', 'reviewerName', 'movieid', 'title', 'genre', 'ratingContents', 'rcSorted', 'director', 'distributor', 'reviewText_2']}
+
+Confusion matrix and f1-score for rows which have no reviewText in X_train: 
+[[1883  522]
+ [ 265 3777]]
+0.8779277183185978
+Check 3 complete.
+Shape of X_test: (55315, 17)
+Features in X_train: Index(['isFrequentReviewer', 'rating', 'audScoreBins', 'boxOfficeBins',
+       'audienceScore', 'boxOffice', 'runtimeMinutes', 'reviewText',
+       'reviewerName', 'movieid', 'title', 'genre', 'ratingContents',
+       'rcSorted', 'director', 'distributor', 'reviewText_2'],
+      dtype='object')
+Check 4 complete.
+Best params obtained using full pipeline (GridSearchCV) on X_train: 
+{'model__C': 1, 'model__dual': False, 'model__fit_intercept': True, 'model__solver': 'liblinear'}
+F1-score using full pipeline (GridSearchCV) on X_train: 
+0.8441797148195169
+
+
+v88.0
+
+Selected features: {'cat': ['isFrequentReviewer', 'audScoreBins', 'boxOfficeBins'], 'num': ['releaseDiff'], 'txt': ['reviewText', 'reviewerName', 'movieid', 'genre', 'director', 'ratingContents', 'distributor', 'reviewText_2']}
+Pipeline built successfully.
+
+Confusion matrix and f1-score for rows which have no reviewText in X_train: 
+[[1833  572]
+ [ 290 3752]]
+0.8662944004963549
+Check 3 complete.
+Shape of X_test: (55315, 12)
+Features in X_train: Index(['isFrequentReviewer', 'audScoreBins', 'boxOfficeBins', 'releaseDiff',
+       'reviewText', 'reviewerName', 'movieid', 'genre', 'director',
+       'ratingContents', 'distributor', 'reviewText_2'],
+      dtype='object')
+Check 4 complete.
+Best params obtained using full pipeline (GridSearchCV) on X_train: 
+{'model__C': 1, 'model__dual': False, 'model__fit_intercept': True, 'model__solver': 'liblinear'}
+F1-score using full pipeline (GridSearchCV) on X_train: 
+0.8447203919787656
+
